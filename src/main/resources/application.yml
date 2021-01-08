@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:12206/racetime
+    username: racetime
+    password: racetime
+keycloak:
+  auth-server-url: http://localhost:12000/auth
+  realm: racetime
+  resource: racetime-app
+  public-client: true

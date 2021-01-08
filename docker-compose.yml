@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  racetime.keycloak:
+    image: jboss/keycloak
+    restart: always
+    depends_on:
+      - keycloak-db
+    ports:
+      - 12000:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: pass
+      DB_VENDOR: postgres
+      DB_ADDR: racetime.keycloak-db
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+  racetime.keycloak-db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+      POSTGRES_DB: keycloak
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
+volumes:
+  keycloak-data:
