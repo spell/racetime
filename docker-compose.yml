@@ -5,7 +5,7 @@ services:
     image: jboss/keycloak
     restart: always
     depends_on:
-      - keycloak-db
+      - racetime.keycloak-db
     ports:
       - 12000:8080
     environment:

@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "racetime.hashids.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used to hash ids into a hashid."
+    },
+    {
+      "name": "racetime.hashids.min-length",
+      "type": "java.lang.Integer",
+      "description": "Minimum character length of hashids."
+    }
+  ]
+}

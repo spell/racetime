@@ -3,9 +3,12 @@ package gg.racetime.racetime.category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import gg.racetime.racetime.django.DjangoCharFieldSerializer;
+import gg.racetime.racetime.race.Race;
+import gg.racetime.racetime.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "racetime_category")
@@ -44,6 +47,21 @@ public class Category {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Race> races;
+
+    @ManyToMany
+    @JoinTable(name = "racetime_category_owners",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> owners;
+
+    @ManyToMany
+    @JoinTable(name = "racetime_category_moderators",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> moderators;
 
     public Category() {
     }
@@ -138,5 +156,29 @@ public class Category {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Race> getRaces() {
+        return races;
+    }
+
+    public void setRaces(Set<Race> races) {
+        this.races = races;
+    }
+
+    public Set<User> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Set<User> owners) {
+        this.owners = owners;
+    }
+
+    public Set<User> getModerators() {
+        return moderators;
+    }
+
+    public void setModerators(Set<User> moderators) {
+        this.moderators = moderators;
     }
 }
